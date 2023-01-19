@@ -146,15 +146,6 @@
                                                                                th:value="${user.lastname}" required>
                                                                     </label>
                                                                 </p>
-                                                                <!--                                                                <p>-->
-                                                                <!--                                                                    <label for="editPassword">-->
-                                                                <!--                                                                        <strong>Password</strong>-->
-                                                                <!--                                                                        <input class="form-control" th:type="password"-->
-                                                                <!--                                                                               th:name="password" id="editPassword"-->
-                                                                <!--                                                                               placeholder="Password"-->
-                                                                <!--                                                                               th:value="${user.password}" required>-->
-                                                                <!--                                                                    </label>-->
-                                                                <!--                                                                </p>-->
                                                                 <label class="container-fluid col-6"
                                                                        for="editUserRoles">
                                                                     <strong>Role</strong>
@@ -277,16 +268,16 @@
                         <div class="card-body text-center">
                             <div class="form-justify-content-center mx-auto col-4">
                                 <form id="formNewUser" name="formNewUser"
-                                      th:action="@{/admin/createNew}"
-                                      th:object="${newUser}"
-                                      th:method="POST">
+                                      th:action="@{/admin}"
+                                      th:object="${userNew}"
+                                      method="POST">
                                     <p>
                                         <label class="container-fluid col-6" for="username">
                                             <strong>Username</strong>
                                             <input class="form-control" type="text"
                                                    name="username" id="username"
                                                    placeholder="username"
-                                                   th:field="*{username}">
+                                                   th:field="${newUser.username}" required>
                                         </label>
                                     </p>
                                     <p>
@@ -295,7 +286,7 @@
                                             <input class="form-control" type="text"
                                                    name="name" id="name"
                                                    placeholder="name"
-                                                   th:field="*{name}">
+                                                   th:field="${newUser.name}" required>
                                         </label>
                                     </p>
                                     <p>
@@ -304,7 +295,7 @@
                                             <input class="form-control" type="text"
                                                    name="lastname" id="lastname"
                                                    placeholder="lastname"
-                                                   th:field="*{lastname}">
+                                                   th:field="${newUser.lastname}" required>
                                         </label>
                                     </p>
                                     <p>
@@ -313,20 +304,23 @@
                                             <input class="form-control password" type="password"
                                                    name="password" id="password"
                                                    placeholder="password"
-                                                   th:field="*{password}">
+                                                   th:field="${newUser.password}" required>
                                         </label>
                                     </p>
                                     <label class="container-fluid col-6"
                                            for="my_roles">
                                         <strong>Role</strong>
                                         <select id="my_roles" class="form-select"
-                                                name="my_roles" multiple size="2">
-                                            <option>ROLE_USER</option>
-                                            <option>ROLE_ADMIN</option>
+                                                name="roles" multiple size="2">
+                                            <option th:each="role: ${rolesAdd}" th:value="${role.getId()}" >
+                                                <th:block th:text="${role.getName()}">
+                                                </th:block>
+                                            </option>
                                         </select>
                                     </label>
                                     <p>
-                                        <button type="submit" class="btn btn-success">Add new user</button>
+                                        <button type="submit" id="newUserButton" class="btn btn-success">Add new user
+                                        </button>
                                     </p>
                                 </form>
                             </div>
@@ -355,12 +349,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user: ${admin}">
-                            <td th:utext="${user.getId()}"></td>
-                            <td th:utext="${user.getUsername()}"></td>
-                            <td th:utext="${user.getName()}"></td>
-                            <td th:utext="${user.getLastname()}"></td>
-                            <td th:utext="${user.getRoles()}"></td>
+                        <tr>
+                            <td th:utext="${admin.getId()}"></td>
+                            <td th:utext="${admin.getUsername()}"></td>
+                            <td th:utext="${admin.getName()}"></td>
+                            <td th:utext="${admin.getLastname()}"></td>
+                            <td th:utext="${admin.getRoles()}"></td>
                         </tr>
                         </tbody>
                     </table>

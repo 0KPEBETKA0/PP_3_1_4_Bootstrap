@@ -8,7 +8,7 @@ public interface RoleService {
 
     List<Role> getRoles();
 
-    void saveRole(Role roleAdmin);
+    List<Role> getUniqAllRoles();
 
-    void removeRoleById(Long id);
+    void saveRole(Role roleAdmin);
 }

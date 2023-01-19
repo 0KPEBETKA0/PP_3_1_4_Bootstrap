@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface UsersService {
 
-    void saveUser(User user);
-
     List<User> getAllUsers();
+
+    void saveUser(User user);
 
     User getUserById(Long id);
 
